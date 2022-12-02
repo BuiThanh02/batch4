@@ -1,8 +1,8 @@
 package com.example.productresponse.controllers;
 
-import com.tass.productservice.model.BaseResponse;
-import com.tass.productservice.model.request.ProductRequest;
-import com.tass.productservice.services.ProductService;
+import com.example.productresponse.model.BaseResponse;
+import com.example.productresponse.model.request.ProductRequest;
+import com.example.productresponse.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

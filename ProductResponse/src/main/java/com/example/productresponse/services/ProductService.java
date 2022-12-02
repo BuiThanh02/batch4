@@ -1,8 +1,8 @@
 package com.example.productresponse.services;
 
-import com.tass.productservice.model.BaseResponse;
-import com.tass.productservice.model.request.ProductRequest;
-import com.tass.productservice.repository.ProductRepository;
+import com.example.productresponse.model.BaseResponse;
+import com.example.productresponse.model.request.ProductRequest;
+import com.example.productresponse.repository.ProductRepository;
 import lombok.extern.log4j.Log4j2;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

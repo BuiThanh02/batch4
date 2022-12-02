@@ -1,6 +1,6 @@
 package com.example.productresponse.controllers;
 
-import com.tass.productservice.model.BaseResponse;
+import com.example.productresponse.model.BaseResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
