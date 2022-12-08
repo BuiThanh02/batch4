@@ -7,6 +7,7 @@ import com.example.springprojecttasc.model.ApiException;
 import com.example.springprojecttasc.model.BaseResponse;
 import com.example.springprojecttasc.model.ERROR;
 import com.example.springprojecttasc.model.request.CategoryRequest;
+import com.example.springprojecttasc.model.response.CategoryResponse;
 import com.example.springprojecttasc.model.response.SearchResponse;
 import com.example.springprojecttasc.search.SearchBody;
 import com.example.springprojecttasc.utils.Constant;
@@ -200,4 +201,27 @@ public class CategoryService {
         return new BaseResponse(200, "success", categoryRepository.findAll(query));
     }
 
+    public BaseResponse findAllParentAndChildWithView(Long id) throws ApiException{
+        Optional<Category> optionalCategory = categoryRepository.findById(id);
+        if (!optionalCategory.isPresent()) {
+            throw new ApiException(ERROR.INVALID_PARAM, "category does not exist!");
+        }
+        String query = "select * from cp where id = " + id;
+        return new BaseResponse(200, "success", categoryRepository.findAllWithQuery(query));
+    }
+
+    public BaseResponse findAllParentAndChildWithQuery(Long id) throws ApiException{
+        Optional<Category> optionalCategory = categoryRepository.findById(id);
+        if (!optionalCategory.isPresent()) {
+            throw new ApiException(ERROR.INVALID_PARAM, "category does not exist!");
+        }
+
+        String query = "select c.*,(select JSON_ARRAYAGG(JSON_OBJECT('id',d.id,'name',d.name,'icon',d.icon,'description',d.description,'is_root',d.is_root))" +
+                "            from category d where d.id in(select cr.category_id from category_relationship cr where  cr.parent_id=c.id)) as child, " +
+                "       (select json_arrayagg(json_object('id',p.id,'name',p.name,'icon',p.icon,'description',p.description,'is_root',p.is_root))" +
+                "        from category p where p.id in(select cr2.parent_id from  category_relationship cr2 where cr2.category_id=c.id)) as parent " +
+                "from category c where c.id = "+ id;
+
+        return new BaseResponse(200, "success", categoryRepository.findAllWithQuery(query));
+    }
 }

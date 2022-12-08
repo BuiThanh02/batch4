@@ -43,6 +43,16 @@ public class CategoryController extends BaseController{
         return createdResponse(categoryService.findByName(name));
     }
 
+    @GetMapping(path = "/view/{id}")
+    public ResponseEntity<BaseResponse> findALlWithView(@PathVariable Long id){
+        return createdResponse(categoryService.findAllParentAndChildWithView(id));
+    }
+
+    @GetMapping(path = "/query/{id}")
+    public ResponseEntity<BaseResponse> findALlWithQuery(@PathVariable Long id){
+        return createdResponse(categoryService.findAllParentAndChildWithQuery(id));
+    }
+
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<BaseResponse> delete(@PathVariable Long id){
         return createdResponse(categoryService.delete(id));
